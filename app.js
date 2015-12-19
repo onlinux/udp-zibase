@@ -2,7 +2,7 @@
  +-+-+-+-+-+-+-+-+-+-+
  |o|n|l|i|n|u|x|.|f|r|
  +-+-+-+-+-+-+-+-+-+-+
- https://github.com/onlinux/Zibase-log
+ https://github.com/onlinux/udp-zibase
 
  */
 
@@ -66,38 +66,21 @@ client.on("message", function (msg, rinfo) {
     
     
     if (zibaseIp) {
-        b.fill(0);
-        b.write('ZSIG\0', 0/*offset*/);
-        b.writeUInt16BE(7, 4); //command 07
-        b.write('RFSH    \0', 6/*offset*/);
-        b.writeUInt16BE(0xC053, 14); 
-        b.writeUInt16BE(0x0004, 16); 
-        b.writeUInt16BE(0x014B, 66); 
-        b.write('ZiBASE0059b5    \0', 22/*offset*/);
-        
-        console.log(b);
-        client.send(b, 0, b.length, 50005, zibaseIp, function (err, bytes) {
 
             //HOST REGISTERING
             b.fill(0);
             b.write('ZSIG\0', 0/*offset*/);
             b.writeUInt16BE(13, 4); //command HOST REGISTERING (13)
             b.writeUInt32BE(dot2num(clientIp), 50); //Ip address
-            b.writeUInt32BE(0x42CC, 54); // port 17100 0x42CC
+            b.writeUInt32BE(0x42CC, 54); // port 17100 is 0x42CC
         
-            
             var ts = Math.round((new Date()).getTime() / 1000);
             console.log(ts.toString()); //timestamp
-            b.writeUInt32BE(ts, 58); // send timestamp as PARAM3
-
+            b.writeUInt32BE(ts, 58); // send timestamp as PARAM3 <---------------------------
+            console.log('HOST REGISTERING sent to ' + zibaseIp+ ' with  ' + ts.toString() + 'as timestamp');
             client.send(b, 0, b.length, 49999, zibaseIp, function (err, bytes) {
             // client.close();
-            });  
-            
-        }); 
-         
-
-        
+            });    
     }
 });
 
@@ -109,7 +92,7 @@ client.send(b, 0, b.length, 49999, '192.168.0.255', function (err, bytes) {
     console.log(b);
 });
 
-server.bind(0x42CC, clientIp);
+server.bind(0x42CC, clientIp); //port 17100 is 0x42CC
 
 
 process.on('SIGINT', function () {
