@@ -50,6 +50,7 @@ server.on("listening", function () {
 });
 
 client.on('listening', function(){
+    var address = client.address();
     
     client.setBroadcast(true);
     console.log("Client listening on port: " + address.port);
