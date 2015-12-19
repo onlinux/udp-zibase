@@ -28,6 +28,21 @@ Sous Windows:
 Sous Linux, téléchargez le fichier facilement avec wget
 <pre style="font-size:12px;">
 pi@raspidev ~ $ <strong>wget https://github.com/onlinux/udp-zibase/archive/master.zip</strong>
+
+</pre>
+ou si git est installé
+<pre>
+eric@I7:~/src$ git clone https://github.com/onlinux/udp-zibase.git
+Clonage dans 'udp-zibase'...
+remote: Counting objects: 7, done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 7 (delta 0), reused 7 (delta 0), pack-reused 0
+Unpacking objects: 100% (7/7), done.
+Vérification de la connectivité... fait.
+eric@I7:~/src$ cd udp-zibase/
+eric@I7:~/src/udp-zibase$ 
+
+
 </pre>
 
 Assurez-vous que tous les modules nodeJs sont bien installés, sous Windows ou Linux tapez:
