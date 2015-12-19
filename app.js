@@ -58,7 +58,7 @@ client.on('listening', function(){
 
 client.on("message", function (msg, rinfo) {
     var date = moment();
-    var ip = msg.readUIntBE(38, 4);
+    var ip = msg.readUInt32BE(38, 4);
     zibaseIp = num2dot(ip);
 
     console.log(date.format(dateFormat) + ' '+ msg.toString(undefined, 6,12 )+ " " + msg.toString(undefined, 22,34 ) + ' IP is  ' + zibaseIp);
