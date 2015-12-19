@@ -50,11 +50,9 @@ server.on("listening", function () {
 });
 
 client.on('listening', function(){
+    
     client.setBroadcast(true);
-    var address = client.address();
-
-    console.log("Server listening " +
-        address.address + ":" + address.port);
+    console.log("Client listening on port: " + address.port);
 });
 
 client.on("message", function (msg, rinfo) {
@@ -75,9 +73,9 @@ client.on("message", function (msg, rinfo) {
             b.writeUInt32BE(0x42CC, 54); // port 17100 is 0x42CC
         
             var ts = Math.round((new Date()).getTime() / 1000);
-            console.log(ts.toString()); //timestamp
             b.writeUInt32BE(ts, 58); // send timestamp as PARAM3 <---------------------------
-            console.log('HOST REGISTERING sent to ' + zibaseIp+ ' with  ' + ts.toString() + 'as timestamp');
+            
+            console.log('HOST REGISTERING sent to ' + zibaseIp+ ' with  ' + ts.toString() + ' as timestamp');
             client.send(b, 0, b.length, 49999, zibaseIp, function (err, bytes) {
             // client.close();
             });    
@@ -86,7 +84,7 @@ client.on("message", function (msg, rinfo) {
 
 b.fill(0);
 b.write('ZSIG\0', 0/*offset*/);
-b.writeUInt16BE(8, 4); // command NOP (08)
+b.writeUInt16BE(8, 4); // command NOP (08) ZIBASE DISCOVERY
 // Broadcast msg on lan to retrieve zibase IP
 client.send(b, 0, b.length, 49999, '192.168.0.255', function (err, bytes) { 
     console.log(b);
