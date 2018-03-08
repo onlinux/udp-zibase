@@ -1,7 +1,7 @@
 {
   "name": "udp-zibase",
   "version": "1.0.0",
-  "description": "Permet d'obtenir le suivi d'activité de la zibase, et lorqu'internet est injoignable envoie une trame UDP pour mettre à l'heure l'horloge de la zibase",
+  "description": "Permet d'obtenir le suivi d'activité de la zibase, et lorsque l'internet est indisponible envoie une trame UDP pour mettre à l'heure l'horloge de la zibase",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
